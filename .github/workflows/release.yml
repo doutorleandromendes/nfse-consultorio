@@ -1,0 +1,31 @@
+# Gera o instalador do Windows e publica como Release no GitHub.
+# Os programas já instalados baixam a atualização sozinhos a partir dessa Release.
+#
+# Para lançar uma versão nova:
+#   npm version patch        (ou minor) — atualiza package.json e cria a tag vX.Y.Z
+#   git push --follow-tags
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: Gerar instalador e publicar
+        run: npx electron-builder --win --x64 --publish always
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

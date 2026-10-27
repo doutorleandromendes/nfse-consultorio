@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:">
+  <title>Notas do Consultório</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="faixa" class="faixa teste" role="status">
+    <span class="faixa-txt" id="faixa-txt">Carregando…</span>
+    <button id="faixa-btn" type="button" hidden></button>
+  </div>
+
+  <div class="app">
+    <nav aria-label="Menu principal">
+      <div class="marca">
+        <strong>Notas do Consultório</strong>
+        <small id="nome-empresa">—</small>
+      </div>
+      <button data-view="emitir" aria-current="page">Emitir nota</button>
+      <button data-view="notas">Notas emitidas <span class="contador" id="cont-notas" hidden></span></button>
+      <button data-view="pacientes">Pacientes</button>
+      <button data-view="relatorios">Contadora e DMED</button>
+      <button data-view="config">Configurações <span class="contador vermelho" id="cont-config" hidden>!</span></button>
+      <button data-view="ajuda">Ajuda</button>
+      <div class="rodape">
+        <div id="atualizacao" hidden></div>
+        <span id="versao"></span>
+      </div>
+    </nav>
+    <main id="conteudo" tabindex="-1"></main>
+  </div>
+
+  <dialog id="dlg"></dialog>
+  <div id="toasts" aria-live="polite"></div>
+
+  <script src="ajuda.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

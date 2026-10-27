@@ -1,0 +1,37 @@
+appId: br.consultorio.notas
+productName: Notas do Consultório
+copyright: MIT
+directories:
+  output: dist
+  buildResources: build
+files:
+  - src/**/*
+  - package.json
+  - "!**/*.map"
+  # do sql.js só precisamos de sql-wasm.js + sql-wasm.wasm
+  - "!node_modules/sql.js/dist/{sql-asm*,sql-wasm-debug*,sql-wasm-browser*,worker*,sqljs-*,*.zip}"
+  - "!node_modules/sql.js/{documentation,examples,GUI,test}/**"
+win:
+  target:
+    - target: nsis
+      arch: [x64]
+  artifactName: NotasDoConsultorio-Setup-${version}.${ext}
+  # Sem certificado de assinatura de código: o Windows mostra o aviso do SmartScreen na 1ª instalação.
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: false
+  createDesktopShortcut: always
+  createStartMenuShortcut: true
+  shortcutName: Notas do Consultório
+  language: 1046
+  runAfterFinish: true
+mac:
+  target: dmg
+  category: public.app-category.business
+publish:
+  provider: github
+  # Repositório PÚBLICO no GitHub de onde o programa baixa as atualizações (troque se usar outro)
+  owner: doutorleandromendes
+  repo: nfse-consultorio
+  releaseType: release
